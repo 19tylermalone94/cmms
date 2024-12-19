@@ -38,3 +38,25 @@ A computerized maintenance management system built with Next.js
 5. Known Issues/Limitations
    - Current bugs or limitations
    - Future improvements
+
+
+## Project Dependencies
+
+### Dependencies
+These are the core dependencies required to run the app:
+- **next** (15.1.1): The Next.js framework for building server-side rendered React apps.
+- **react** (^19.0.0): The core library for building user interfaces.
+- **react-dom** (^19.0.0): React package for working with the DOM.
+- **zod** (^3.24.1): A TypeScript-first schema declaration and validation library.
+
+### DevDependencies
+These are development tools and configurations:
+- **@eslint/eslintrc** (^3): Shared ESLint configurations.
+- **@types/node** (^20): TypeScript type definitions for Node.js.
+- **@types/react** (^19): TypeScript type definitions for React.
+- **@types/react-dom** (^19): TypeScript type definitions for React DOM.
+- **eslint** (^9): JavaScript linting utility.
+- **eslint-config-next** (15.1.1): ESLint configuration specific to Next.js.
+- **postcss** (^8): CSS processor used by Tailwind CSS.
+- **tailwindcss** (^3.4.1): A utility-first CSS framework.
+- **typescript** (^5): TypeScript for type-safe development.
