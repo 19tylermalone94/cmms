@@ -29,6 +29,7 @@ const EquipmentForm = () => {
   };
 
   return (
+    
     <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
 
       {/* Name Field */}
@@ -164,7 +165,9 @@ const EquipmentForm = () => {
           Add Equipment
         </button>
       </div>
+
     </form>
+
   );
 };
 
