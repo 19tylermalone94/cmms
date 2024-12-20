@@ -1,10 +1,15 @@
-import EquipmentForm from "./components/EquipmentForm";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div>
-      <h1>CMMS</h1>
-      <EquipmentForm></EquipmentForm>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-4xl font-bold mb-6">CMMS</h1>
+      
+      <Link href="/equipment">
+        <button className="px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+          Add new equipment
+        </button>
+      </Link>
     </div>
   );
 }
