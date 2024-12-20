@@ -14,7 +14,7 @@ const EquipmentFormSchema = z.object({
       const selectedDate = new Date(date);
       const today = new Date();
       today.setHours(0, 0, 0, 0); // set to midnight
-      return selectedDate < today;
+      return selectedDate < today; // require a date in the past
     }, {
       message: "date must be in the past",
     }),
