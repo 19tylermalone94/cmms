@@ -48,6 +48,7 @@ These are the core dependencies required to run the app:
 - **react** (^19.0.0): The core library for building user interfaces.
 - **react-dom** (^19.0.0): React package for working with the DOM.
 - **zod** (^3.24.1): A TypeScript-first schema declaration and validation library.
+- **react-hook-form** (^7.54.1): used for input forms
 
 ### DevDependencies
 These are development tools and configurations:
