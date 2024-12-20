@@ -1,18 +1,25 @@
 import { z } from "zod";
 
 const EquipmentFormSchema = z.object({
-  name: z.string().min(3, { message: "Name must be at least 3 characters" }),
-  location: z.string().min(1, { message: "Location is required" }),
+  name: z.string().min(3, { message: "name must be at least 3 characters" }),
+  location: z.string().min(1, { message: "location is required" }),
   department: z.enum(["Machining", "Assembly", "Packaging", "Shipping"], {
-      errorMap: () => ({ message: 'Department is required' })
+      errorMap: () => ({ message: 'department is required' })
     }),
-  model: z.string().min(1, { message: "Model is required" }),
-  serialNumber: z.string().min(1, { message: "Serial Number is required" }),
-  installDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
-    message: "Install Date must be a valid date",
-  }),
+  model: z.string().min(1, { message: "model is required" }),
+  serialNumber: z.string().min(1, { message: "serial number is required" }),
+  installDate: z
+    .string()
+    .refine((date) => {
+      const selectedDate = new Date(date);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // set to midnight
+      return selectedDate < today;
+    }, {
+      message: "date must be in the past",
+    }),
   status: z.enum(["Operational", "Down", "Maintenance", "Retired"], {
-      errorMap: () => ({ message: 'Status is required' })
+      errorMap: () => ({ message: 'status is required' })
     }),
 });
 
