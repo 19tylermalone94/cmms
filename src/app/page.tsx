@@ -9,6 +9,12 @@ export default function Home() {
           Add new equipment
         </button>
       </Link>
+
+      <Link href="/maintenance">
+        <button className="px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+          Add new maintenance record
+        </button>
+      </Link>
     </div>
   );
 }
