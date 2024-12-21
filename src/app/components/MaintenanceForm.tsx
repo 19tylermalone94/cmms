@@ -1,17 +1,35 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createMaintenanceRecord } from "../actions/addMaintenanceRecord";
 import MaintenanceFormSchema from "../schemas/MaintenanceFormSchema";
+import { getEquipment } from "../actions/getEquipment";
 
 type MaintenanceRecord = z.infer<typeof MaintenanceFormSchema>;
 
 const MaintenanceForm = () => {
-
+  const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [partsReplaced, setPartsReplaced] = useState<string[]>([]);
+  useEffect(() => {
+    const fetchEquipment = async () => {
+      try {
+        setLoading(true);
+        const data = await getEquipment();
+        setEquipmentList(data);
+      } catch (err) {
+        setError("Failed to load equipment.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEquipment();
+  }, []);
 
   const addPart = () => {
     setPartsReplaced([...partsReplaced, ""]);
@@ -52,7 +70,33 @@ const MaintenanceForm = () => {
 
       {/* Equipment Field */}
       <div>
-        {/* get equipment from db and list it in a dropdown here */}
+        <label htmlFor="equipmentId" className="block mb-2 text-sm font-bold text-gray-700">
+          Equipment
+        </label>
+        {loading ? (
+          <p>Loading equipment...</p>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+          <select
+            id="equipmentId"
+            defaultValue=""
+            {...register("equipmentId", { required: "Equipment is required" })}
+            className="w-full px-3 py-2 border rounded focus:outline-none"
+          >
+            <option value="" disabled>
+              Select equipment
+            </option>
+            {equipmentList.map((equipment) => (
+              <option key={equipment.id} value={equipment.id}>
+                {equipment.name} - {equipment.location} ({equipment.department})
+              </option>
+            ))}
+          </select>
+        )}
+        {errors.equipmentId && (
+          <p className="text-red-500 text-xs">{errors.equipmentId.message}</p>
+        )}
       </div>
 
       {/* Date Field */}
