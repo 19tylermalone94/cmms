@@ -17,9 +17,13 @@ const MaintenanceFormSchema = z.object({
     errorMap: () => ({ message: "type is required" }),
   }),
   technician: z.string().min(1, { message: "technician must be at least 2 characters" }),
-  hoursSpent: z.number().refine((hoursSpent) => {
-    return hoursSpent > 0 && hoursSpent <= 24; // positive number no greater than 24
-  }),
+  hoursSpent: z
+    .string()
+    .refine((value) => {
+      const numberValue = parseInt(value);
+      return !isNaN(numberValue) && numberValue > 0 && numberValue <= 24;
+    }, { message: "Hours spent must be a positive number no greater than 24" })
+    .transform((value) => parseInt(value)),
   description: z.string().min(10, { message: "description must be at least 10 characters" }),
   partsReplaced: z.string().array().optional(),
   priority: z.enum(['Low', 'Medium', 'High'], {
