@@ -50,6 +50,7 @@ These are the core dependencies required to run the app:
 - **zod** (^3.24.1): A TypeScript-first schema declaration and validation library.
 - **@hookform/resolvers** (^3.9.1): used to handle forms
 - **react-hook-form** (^7.54.1): used for input forms
+- **uuid** (^11.0.3): for generating unique ids for records
 
 ### DevDependencies
 These are development tools and configurations:

@@ -1,4 +1,4 @@
-'use client'; // Required for Client Components in Next.js
+'use client';
 
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -18,7 +18,7 @@ const EquipmentForm = () => {
     resolver: zodResolver(EquipmentFormSchema),
   });
 
-  const onSubmit = async (data: Equipment) => {
+  const onSubmit = async (data: Omit<Equipment, "id">) => {
     try {
       console.log("Validated data:", data);
       await createEquipment(data);

@@ -17,7 +17,8 @@ const EquipmentFormSchema = z.object({
       return selectedDate < today; // require a date in the past
     }, {
       message: "date must be in the past",
-    }),
+    })
+    .transform((date) => new Date(date)),
   status: z.enum(["Operational", "Down", "Maintenance", "Retired"], {
       errorMap: () => ({ message: 'status is required' })
     }),
