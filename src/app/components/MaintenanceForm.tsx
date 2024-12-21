@@ -58,7 +58,7 @@ const MaintenanceForm = () => {
     try {
       console.log("Validated data:", data);
       await createMaintenanceRecord(data);
-      alert("Equipment added successfully!");
+      alert("Maintenance record added successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -250,8 +250,8 @@ const MaintenanceForm = () => {
           <option value="" disabled>
             Select a completion status
           </option>
-          <option value="Low">Complete</option>
-          <option value="Medium">Incomplete</option>
+          <option value="Complete">Complete</option>
+          <option value="Incomplete">Incomplete</option>
           <option value="Pending Parts">Pending Parts</option>
         </select>
         {errors.completionStatus && <p className="text-red-500 text-xs">{errors.completionStatus.message}</p>}
@@ -263,7 +263,7 @@ const MaintenanceForm = () => {
           type="submit"
           className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
         >
-          Add Equipment
+          Add Maintenance Record
         </button>
       </div>
 
