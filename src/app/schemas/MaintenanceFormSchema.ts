@@ -10,18 +10,24 @@ const MaintenanceFormSchema = z.object({
       today.setHours(23, 59, 59, 999); // set 1 ms before tomorrow
       return selectedDate <= today; // require a date no later than today
     }, {
-      message: "date must be in the past",
+      message: "future date not allowed",
     })
     .transform((date) => new Date(date)),
-  type: z.string().min(1, { message: "type is required" }),
+  type: z.enum(['Preventive', 'Repair', 'Emergency'], {
+    errorMap: () => ({ message: "type is required" }),
+  }),
   technician: z.string().min(1, { message: "technician must be at least 2 characters" }),
   hoursSpent: z.number().refine((hoursSpent) => {
     return hoursSpent > 0 && hoursSpent <= 24; // positive number no greater than 24
   }),
   description: z.string().min(10, { message: "description must be at least 10 characters" }),
   partsReplaced: z.string().array().optional(),
-  priority: z.string().min(1, { message: "priority is required" }),
-  completionStatus: z.string().min(1, { message: "completion status is required" }),
+  priority: z.enum(['Low', 'Medium', 'High'], {
+    errorMap: () => ({ message: "priority is required" }),
+  }),
+  completionStatus: z.enum(['Complete', 'Incomplete', 'Pending Parts'], {
+    errorMap: () => ({ message: "completion status is required" }),
+  }),
 });
 
 export default MaintenanceFormSchema;
