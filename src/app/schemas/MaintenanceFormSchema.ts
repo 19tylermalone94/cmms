@@ -7,7 +7,7 @@ const MaintenanceFormSchema = z.object({
     .refine((date) => {
       const selectedDate = new Date(date);
       const today = new Date();
-      today.setHours(0, 0, 0, 0); // set to midnight
+      today.setHours(23, 59, 59, 999); // set 1 ms before tomorrow
       return selectedDate <= today; // require a date no later than today
     }, {
       message: "date must be in the past",
