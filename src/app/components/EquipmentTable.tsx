@@ -1,63 +1,109 @@
-"use client"
+"use client";
 
-import { CellContext, ColumnDef, getCoreRowModel, RowData, useReactTable } from "@tanstack/react-table";
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  CellContext
+} from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import { getEquipment } from "../actions/getEquipment";
+import { Equipment } from "../types/Equipment";
 
-const columns: ColumnDef<Equipment>[] = [
+const columns = [
   {
-    accessorKey: "id",
+    id: "id",
     header: "id",
-    cell: (props: CellContext<Equipment, Equipment['id']>) => <p>{props.getValue()}</p>
-  },
+    accessorFn: (row: Equipment) => row.id,
+    cell: (info: CellContext<Equipment, string>) => {
+      const value = info.getValue();
+      return <p>{value}</p>;
+    },
+  } as ColumnDef<Equipment, string>,
+
   {
-    accessorKey: "name",
+    id: "name",
     header: "name",
-    cell: (props: CellContext<Equipment, Equipment['name']>) => <p>{props.getValue()}</p>
-  },
+    accessorFn: (row: Equipment) => row.name,
+    cell: (info: CellContext<Equipment, string>) => {
+      const value = info.getValue();
+      return <p>{value}</p>;
+    },
+  } as ColumnDef<Equipment, string>,
+
   {
-    accessorKey: "location",
+    id: "location",
     header: "location",
-    cell: (props: CellContext<Equipment, Equipment['location']>) => <p>{props.getValue()}</p>
-  },
+    accessorFn: (row: Equipment) => row.location,
+    cell: (info: CellContext<Equipment, string>) => {
+      const value = info.getValue();
+      return <p>{value}</p>;
+    },
+  } as ColumnDef<Equipment, string>,
+
   {
-    accessorKey: "department",
+    id: "department",
     header: "department",
-    cell: (props: CellContext<Equipment, Equipment['department']>) => <p>{props.getValue()}</p>
-  },
+    accessorFn: (row: Equipment) => row.department,
+    cell: (info: CellContext<Equipment, string>) => {
+      const value = info.getValue();
+      return <p>{value}</p>;
+    },
+  } as ColumnDef<Equipment, string>,
+
   {
-    accessorKey: "model",
+    id: "model",
     header: "model",
-    cell: (props: CellContext<Equipment, Equipment['model']>) => <p>{props.getValue()}</p>
-  },
+    accessorFn: (row: Equipment) => row.model,
+    cell: (info: CellContext<Equipment, string>) => {
+      const value = info.getValue();
+      return <p>{value}</p>;
+    },
+  } as ColumnDef<Equipment, string>,
+
   {
-    accessorKey: "serialNumber",
+    id: "serialNumber",
     header: "serialNumber",
-    cell: (props: CellContext<Equipment, Equipment['serialNumber']>) => <p>{props.getValue()}</p>
-  },
+    accessorFn: (row: Equipment) => row.serialNumber,
+    cell: (info: CellContext<Equipment, string>) => {
+      const value = info.getValue();
+      return <p>{value}</p>;
+    },
+  } as ColumnDef<Equipment, string>,
+
   {
-    accessorKey: "installDate",
+    id: "installDate",
     header: "installDate",
-    cell: (props: CellContext<Equipment, Equipment['installDate']>) => <p>{props.getValue().toISOString()}</p>
-  },
+    accessorFn: (row: Equipment) => row.installDate,
+    cell: (info: CellContext<Equipment, Date>) => {
+      const date = info.getValue();
+      return <p>{date.toLocaleDateString("en-US")}</p>;
+    },
+  } as ColumnDef<Equipment, Date>,
+
   {
-    accessorKey: "status",
+    id: "status",
     header: "status",
-    cell: (props: CellContext<Equipment, Equipment['status']>) => <p>{props.getValue()}</p>
-  }
-]
+    accessorFn: (row: Equipment) => row.status,
+    cell: (info: CellContext<Equipment, string>) => {
+      const value = info.getValue();
+      return <p>{value}</p>;
+    },
+  } as ColumnDef<Equipment, string>,
+] as Array<ColumnDef<Equipment, string | Date>>; 
 
 const EquipmentTable = () => {
   const [data, setData] = useState<Equipment[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchEquipment = async () => {
       try {
         setLoading(true);
-        const data = await getEquipment();
-        setData(data);
+        const result = await getEquipment();
+        setData(result);
       } catch (err) {
         setError("Failed to load equipment.");
       } finally {
@@ -71,9 +117,50 @@ const EquipmentTable = () => {
   const table = useReactTable({
     data,
     columns,
-    getCoreRowModel:getCoreRowModel()
+    getCoreRowModel: getCoreRowModel(),
   });
-  console.log(table.getHeaderGroups())
+
+  return (
+    <div>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {!loading && !error && (
+        <table>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext()
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
 };
 
 export default EquipmentTable;

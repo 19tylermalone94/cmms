@@ -1,5 +1,6 @@
 import Link from "next/link";
 import EquipmentForm from "../components/EquipmentForm";
+import EquipmentTable from "../components/EquipmentTable";
 
 export default function Equipment() {
   return (
