@@ -1,6 +1,6 @@
 "use client"
 
-import { CellContext, ColumnDef, RowData, useReactTable } from "@tanstack/react-table";
+import { CellContext, ColumnDef, getCoreRowModel, RowData, useReactTable } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import { getEquipment } from "../actions/getEquipment";
 
@@ -71,7 +71,9 @@ const EquipmentTable = () => {
   const table = useReactTable({
     data,
     columns,
-  })
+    getCoreRowModel:getCoreRowModel()
+  });
+  console.log(table.getHeaderGroups())
 };
 
 export default EquipmentTable;
