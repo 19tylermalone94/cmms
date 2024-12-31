@@ -10,6 +10,13 @@ export default function Equipment() {
         <EquipmentForm />
       </div>
       <div>
+      <Link href="/equipment">
+        <button className="px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+          Back to Equipment
+        </button>
+      </Link>
+      </div>
+      <div>
       <Link href="/">
         <button className="px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
           Back to dashboard
