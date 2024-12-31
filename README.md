@@ -51,6 +51,7 @@ These are the core dependencies required to run the app:
 - **@hookform/resolvers** (^3.9.1): used to handle forms
 - **react-hook-form** (^7.54.1): used for input forms
 - **uuid** (^11.0.3): for generating unique ids for records
+- **@tanstack/react-table** (^8.20.6") for creating sortable and filterable data tables
 
 ### DevDependencies
 These are development tools and configurations:

@@ -1,17 +1,18 @@
 import Link from "next/link";
-import EquipmentTable from "../components/EquipmentTable";
+import EquipmentForm from "../../components/EquipmentForm";
+import EquipmentTable from "../../components/EquipmentTable";
 
 export default function Equipment() {
   return (
     <div>
       <div>
-        <h1>Equipment</h1>
-        <EquipmentTable />
+        <h1>Add New Equipment</h1>
+        <EquipmentForm />
       </div>
       <div>
-      <Link href="/equipment/add">
+      <Link href="/equipment">
         <button className="px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
-          Add New Equipment
+          Back to Equipment
         </button>
       </Link>
       </div>

@@ -1,5 +1,7 @@
 "use server"
 
+import { Equipment } from "../types/Equipment";
+
 export const getEquipment = async (): Promise<Equipment[]> => {
   
   // simulated equipment
