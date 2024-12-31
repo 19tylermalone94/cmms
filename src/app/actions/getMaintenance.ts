@@ -2,7 +2,7 @@
 
 import { MaintenanceRecord } from "../types/MaintenanceRecord";
 
-export const getEquipment = async (): Promise<MaintenanceRecord[]> => {
+export const getMaintenance = async (): Promise<MaintenanceRecord[]> => {
   
   // simulated maintenance records
   const maintenanceRecordList: MaintenanceRecord[] = [
