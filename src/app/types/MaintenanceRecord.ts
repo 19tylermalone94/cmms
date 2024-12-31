@@ -1,4 +1,4 @@
-interface MaintenanceRecord {
+export interface MaintenanceRecord {
   id: string;
   equipmentId: string;
   date: Date;
